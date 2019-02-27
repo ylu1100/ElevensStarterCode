@@ -48,6 +48,7 @@ public class Deck {
                 cards.add(new Card(ranks[i],suits[x],values[i]));
             }
         }
+        shuffle();
         size=cards.size();
     }
 
@@ -91,8 +92,8 @@ public class Deck {
             cards.remove(chosencard);/* *** TO BE IMPLEMENTED IN ACTIVITY 4 *** */
         }
         for(int i = 0;i<shuffledeck.size();i++){
-            cards.add(shuffledeck.get(i));
-            shuffledeck.remove(i);
+            cards.add(shuffledeck.get(0));
+            shuffledeck.remove(0);
         }
         size=cards.size();
     }

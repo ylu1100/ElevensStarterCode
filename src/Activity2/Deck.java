@@ -19,7 +19,6 @@ public class Deck {
      */
     private List<Card> cards;
     private List<Card>dealtcards;
-    private List<Card>shuffledeck;
 
     /**
      * size is the number of not-yet-dealt cards.
@@ -42,13 +41,11 @@ public class Deck {
     public Deck(String[] ranks, String[] suits, int[] values) {
         dealtcards=new ArrayList<Card>();
         cards=new ArrayList<Card>();
-        shuffledeck=new ArrayList<Card>();
         for(int i = 0;i<ranks.length;i++){
             for(int x = 0;x<suits.length;x++){
                 cards.add(new Card(ranks[i],suits[x],values[i]));
             }
         }
-        shuffle();
         size=cards.size();
     }
 
@@ -79,73 +76,81 @@ public class Deck {
      * and reset the size to represent the entire deck.
      */
     public void shuffle() {
-        if (dealtcards.size()>0) {
+        if (dealtcards.size() > 0) {
             for (int x = 0; x < dealtcards.size(); x++) {
                 cards.add(dealtcards.get(0));
                 dealtcards.remove(0);
             }
         }
         Card chosencard;
-        for(int i = 0;i<cards.size();i++){
-            chosencard=cards.get((int)(Math.random())*(cards.size()-1));
-            shuffledeck.set(i,chosencard);
-            cards.remove(chosencard);/* *** TO BE IMPLEMENTED IN ACTIVITY 4 *** */
+        for (int i = 0; i < cards.size(); i++) {
+            chosencard = cards.get((int) (Math.random()) * (cards.size()));
+            cards.remove(chosencard);
+            cards.add(chosencard);
         }
-        for(int i = 0;i<shuffledeck.size();i++){
-            cards.add(shuffledeck.get(0));
-            shuffledeck.remove(0);
+            size = cards.size();
         }
-        size=cards.size();
+        public void shuffle(){ //modeled after pseudocode
+        ArrayList<Card>shuffled=new ArrayList<Card>();
+        int k = 0;
+        for(int j = 0;j<=0;j++){
+            shuffled.set(k,cards.get(j));
+            k=k+2;
+        }
+        k = 1;
+        for(int j = 26;j<=51;j++){
+            shuffled.set(k,cards.get(j));
+            k=k+2;
+        }
+        }
+
+        /**
+         * Deals a card from this deck.
+         * @return the card just dealt, or null if all the cards have been
+         *         previously dealt.
+         */
+        public Card deal() {
+            if (isEmpty() == false) {
+                dealtcards.add(cards.get(cards.size() - 1));
+                cards.remove(cards.size() - 1);
+                return dealtcards.get(dealtcards.size() - 1);/* *** TO BE IMPLEMENTED IN ACTIVITY 2 *** */
+            } else {
+                return null;
+            }
+        }
+
+        /**
+         * Generates and returns a string representation of this deck.
+         * @return a string representation of this deck.
+         */
+        @Override
+        public String toString () {
+            String rtn = "size = " + size + "\nUndealt cards: \n";
+            for (int k = size - 1; k >= 0; k--) {
+                rtn = rtn + cards.get(k);
+                if (k != 0) {
+                    rtn = rtn + ", ";
+                }
+                if ((size - k) % 2 == 0) {
+                    // Insert carriage returns so entire deck is visible on console.
+                    rtn = rtn + "\n";
+                }
+            }
+
+            rtn = rtn + "\nDealt cards: \n";
+            for (int k = cards.size() - 1; k >= size; k--) {
+                rtn = rtn + cards.get(k);
+                if (k != size-1) {
+                    rtn = rtn + ", ";
+                }
+                if ((k - cards.size()) % 2 == 0) {
+                    // Insert carriage returns so entire deck is visible on console.
+                    rtn = rtn + "\n";
+                }
+            }
+
+            rtn = rtn + "\n";
+            return rtn;
+        }
     }
-
-    /**
-     * Deals a card from this deck.
-     * @return the card just dealt, or null if all the cards have been
-     *         previously dealt.
-     */
-    public Card deal() {
-        if(isEmpty()==false){
-            dealtcards.add(cards.get(cards.size()-1));
-            cards.remove(cards.size()-1);
-            return dealtcards.get(dealtcards.size()-1);/* *** TO BE IMPLEMENTED IN ACTIVITY 2 *** */
-        }
-        else{
-            return null;
-        }
-    }
-
-    /**
-     * Generates and returns a string representation of this deck.
-     * @return a string representation of this deck.
-     */
-    @Override
-    public String toString() {
-        String rtn = "size = " + size + "\nUndealt cards: \n";
-        for (int k = size - 1; k >= 0; k--) {
-            rtn = rtn + cards.get(k);
-            if (k != 0) {
-                rtn = rtn + ", ";
-            }
-            if ((size - k) % 2 == 0) {
-                // Insert carriage returns so entire deck is visible on console.
-                rtn = rtn + "\n";
-            }
-        }
-
-        rtn = rtn + "\nDealt cards: \n";
-        for (int k = cards.size() - 1; k >= size; k--) {
-            rtn = rtn + cards.get(k);
-            if (k != size) {
-                rtn = rtn + ", ";
-            }
-            if ((k - cards.size()) % 2 == 0) {
-                // Insert carriage returns so entire deck is visible on console.
-                rtn = rtn + "\n";
-            }
-        }
-
-        rtn = rtn + "\n";
-        return rtn;
-    }
-}
 

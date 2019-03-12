@@ -77,18 +77,18 @@ public class ElevensBoard extends Board {
      */
     @Override
     public boolean anotherPlayIsPossible() {
-        if(containsJQK(cardIndexes())==true){
+        if (containsJQK(cardIndexes()) == true) {
             return true;
-        }
-        else{
-            for(int i = 0;i<cardIndexes().size();i++){
-                for(int x = 1;x<cardIndexes().size();x++){
-                    Return(cardAt(cardIndexes().get(i)).pointValue()+ cardAt(cardIndexes().get(x)).pointValue==11);
-			   
-                
+        } else {
+            for (int i = 0; i < cardIndexes().size() - 1; i++) {
+                for (int x = 1; x < cardIndexes().size(); x++) {
+                    Return(cardAt(cardIndexes().get(i)).pointValue() + cardAt(cardIndexes().get(x)).pointValue == 11);
+
+
+                }
             }
+            ;
         }
-	;
     }
 
     /**

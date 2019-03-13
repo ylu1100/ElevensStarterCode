@@ -82,7 +82,7 @@ public class ElevensBoard extends Board {
         } else {
             for (int i = 0; i < cardIndexes().size() - 1; i++) {
                 for (int x = 1; x < cardIndexes().size(); x++) {
-                    Return(cardAt(cardIndexes().get(i)).pointValue() + cardAt(cardIndexes().get(x)).pointValue == 11);
+                    return(cardAt(cardIndexes().get(i)).pointValue() + cardAt(cardIndexes().get(x)).pointValue() == 11);
 
 
                 }
